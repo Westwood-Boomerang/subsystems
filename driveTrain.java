@@ -62,7 +62,7 @@ public class driveTrain {
     public driveTrain(HardwareMap hardwareMap){
         this(hardwareMap, Reverse.RevLeft);
     }
-    void update(double forward, double strafe, double turn, boolean resetIMU) {
+    public void update(double forward, double strafe, double turn, boolean resetIMU) {
 
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 

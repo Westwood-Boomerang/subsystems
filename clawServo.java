@@ -18,7 +18,7 @@ public class clawServo {
     clawServo(HardwareMap hardwareMap){
         this(hardwareMap, false);
     }
-    void update(boolean open, boolean close){
+    public void update(boolean open, boolean close){
         if(open){
             claw.setPosition(1.0);
         } else if (close){
