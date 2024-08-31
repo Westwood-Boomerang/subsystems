@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
 
-public class driveTrain {
+public class driveTrain implements subsystem{
 
     private DcMotorEx FrontLeft, FrontRight, BackLeft, BackRight;
     private IMU imu;

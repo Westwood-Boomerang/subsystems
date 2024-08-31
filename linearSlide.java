@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import java.util.Arrays;
-public class linearSlide {
+public class linearSlide implements subsystem{
     private DcMotorEx slider;
     private int[] StoppingPoints;
     PIDFcontroller controller;
