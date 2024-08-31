@@ -16,6 +16,12 @@ public class linearSlide {
         controller = PID;
         Pointer = currIndex;
     }
+    public linearSlide(HardwareMap hardwareMap, int[] points, int currIndex){
+        this(hardwareMap, points, currIndex);
+    }
+    public linearSlide(HardwareMap hardwareMap, int[] points){
+        this(hardwareMap, points, 0);
+    }
     public void update(boolean up, boolean down){
         if(up) {
             controller.CalculateAsnyc(StoppingPoints[++Pointer], slider.getCurrentPosition());
