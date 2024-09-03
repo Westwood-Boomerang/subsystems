@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class clawServo implements subsystem{
+public class clawServo {
     Servo claw;
     clawServo(HardwareMap hardwareMap, boolean reverse, double rangeMin, double rangeMax){
         claw = hardwareMap.get(Servo.class, "Claw");
