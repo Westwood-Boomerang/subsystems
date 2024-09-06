@@ -1,5 +1,6 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.subsystems;
 
+import org.firstinspires.ftc.teamcode.subsystems.PIDFcontroller;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import java.util.Arrays;
@@ -17,7 +18,7 @@ public class linearSlide {
         Pointer = currIndex;
     }
     public linearSlide(HardwareMap hardwareMap, int[] points, int currIndex){
-        this(hardwareMap, points, currIndex);
+        this(hardwareMap, points, currIndex, new PIDFcontroller(0.0,0.0,0.0,0.0,0.0,10,5.0) );
     }
     public linearSlide(HardwareMap hardwareMap, int[] points){
         this(hardwareMap, points, 0);
