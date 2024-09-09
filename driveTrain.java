@@ -13,7 +13,7 @@ public class driveTrain {
 
     private DcMotorEx FrontLeft, FrontRight, BackLeft, BackRight;
     private IMU imu;
-    interface ScalarInterface {
+    public interface ScalarInterface {
         double scale(double x);
     }
     ScalarInterface scaleFn;

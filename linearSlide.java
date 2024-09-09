@@ -9,11 +9,13 @@ public class linearSlide {
     private int[] StoppingPoints;
     PIDFcontroller controller;
     private int Pointer; //A POINTer to the stopping POINTS
+    private int NumberOfPoints;
 
     public linearSlide(HardwareMap hardwareMap, int[] points, int currIndex, PIDFcontroller PID){
         slider = hardwareMap.get(DcMotorEx.class, "slider");
         StoppingPoints = points;
         Arrays.sort(StoppingPoints); // Allows us to use ++ and -- to move through the points
+        NumberOfPoints = Arrays.size();
         controller = PID;
         Pointer = currIndex;
     }
@@ -23,8 +25,12 @@ public class linearSlide {
     public linearSlide(HardwareMap hardwareMap, int[] points){
         this(hardwareMap, points, 0);
     }
-    public void update(boolean up, boolean down){
-        if(up) {
+    public void update(boolean up, boolean down, boolean bottom, boolean highest){
+        if(highest){
+          controller.CalculateAsnyc(StoppingPoints[Pointer=NumberOfPoints],slider.getCurrentPostion());
+        } else if (bottom){
+            controller.CalculateAsnyc(StoppingPoints[Pointer=0],slider.getCurrentPostion());
+        } else if(up) {
             controller.CalculateAsnyc(StoppingPoints[++Pointer], slider.getCurrentPosition());
         } else if (down){
             controller.CalculateAsnyc(StoppingPoints[--Pointer], slider.getCurrentPosition());
