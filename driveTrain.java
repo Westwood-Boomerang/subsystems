@@ -22,11 +22,11 @@ public class driveTrain {
         RevRight,
         None
     }
-    public driveTrain(HardwareMap hardwareMap, Reverse reversal, IMU.Parameters params, ScalarInterface scalar){
-        FrontRight  =   hardwareMap.get(DcMotorEx.class, "Forward_Right");
-        FrontLeft   =   hardwareMap.get(DcMotorEx.class, "Forward_Left");
-        BackRight   =   hardwareMap.get(DcMotorEx.class, "Backward_Right");
-        BackLeft    =   hardwareMap.get(DcMotorEx.class, "Backward_Left");
+    public driveTrain(HardwareMap hardwareMap, String[] Names, Reverse reversal, IMU.Parameters params, ScalarInterface scalar){
+        FrontRight  =   hardwareMap.get(DcMotorEx.class, Names[0]);
+        FrontLeft   =   hardwareMap.get(DcMotorEx.class, Names[1]);
+        BackRight   =   hardwareMap.get(DcMotorEx.class, Names[2]);
+        BackLeft    =   hardwareMap.get(DcMotorEx.class, Names[3]);
 
         if(reversal == Reverse.RevLeft){
             FrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -46,11 +46,11 @@ public class driveTrain {
         imu.initialize(params);
         scaleFn = scalar;
     }
-    public driveTrain(HardwareMap hardwareMap, Reverse reversal, IMU.Parameters params){
-        this(hardwareMap, reversal, params, (x) -> {return x;});
+    public driveTrain(HardwareMap hardwareMap, String[] Names, Reverse reversal, IMU.Parameters params){
+        this(hardwareMap, Names, reversal, params, (x) -> {return x;});
     }
-    public driveTrain(HardwareMap hardwareMap, Reverse reversal) {
-        this(hardwareMap, reversal,
+    public driveTrain(HardwareMap hardwareMap, String[] Names, Reverse reversal) {
+        this(hardwareMap, Names, reversal,
                 new IMU.Parameters(
                         new RevHubOrientationOnRobot(
                                 RevHubOrientationOnRobot.LogoFacingDirection.UP,

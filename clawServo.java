@@ -5,18 +5,18 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class clawServo {
     Servo claw;
-    clawServo(HardwareMap hardwareMap, boolean reverse, double rangeMin, double rangeMax){
-        claw = hardwareMap.get(Servo.class, "Claw");
+    clawServo(HardwareMap hardwareMap, String Name, boolean reverse, double rangeMin, double rangeMax){
+        claw = hardwareMap.get(Servo.class, Name);
         claw.scaleRange(rangeMin, rangeMax);
         if(reverse){
             claw.setDirection(Servo.Direction.REVERSE);
         }
     }
-    clawServo(HardwareMap hardwareMap, boolean reverse){
-        this(hardwareMap, reverse, 0.0, 1.0);
+    clawServo(HardwareMap hardwareMap, String Name, boolean reverse){
+        this(hardwareMap, Name, reverse, 0.0, 1.0);
     }
-    clawServo(HardwareMap hardwareMap){
-        this(hardwareMap, false);
+    clawServo(HardwareMap hardwareMap, String Name){
+        this(hardwareMap, Name, false);
     }
     public void update(boolean open, boolean close){
         if(open){
