@@ -22,7 +22,7 @@ public class linearSlide {
     public linearSlide(HardwareMap hardwareMap, String Name, int[] points, int currIndex){
         this(hardwareMap, Name, points, currIndex, new PIDFcontroller(0.0,0.0,0.0,0.0,0.0,10,5.0) );
     }
-    public linearSlide(HardwareMap hardwareMap, String name, int[] points){
+    public linearSlide(HardwareMap hardwareMap, String Name, int[] points){
         this(hardwareMap,Name, points, 0);
     }
     public void update(boolean up, boolean down, boolean bottom, boolean highest){
