@@ -3,19 +3,19 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class clawServo {
+public class ClawServo {
     Servo claw;
-    public clawServo(HardwareMap hardwareMap, String Name, boolean reverse, double rangeMin, double rangeMax){
+    public ClawServo(HardwareMap hardwareMap, String Name, boolean reverse, double rangeMin, double rangeMax){
         claw = hardwareMap.get(Servo.class, Name);
         claw.scaleRange(rangeMin, rangeMax);
         if(reverse){
             claw.setDirection(Servo.Direction.REVERSE);
         }
     }
-    public clawServo(HardwareMap hardwareMap, String Name, boolean reverse){
+    public ClawServo(HardwareMap hardwareMap, String Name, boolean reverse){
         this(hardwareMap, Name, reverse, 0.0, 1.0);
     }
-    public clawServo(HardwareMap hardwareMap, String Name){
+    public ClawServo(HardwareMap hardwareMap, String Name){
         this(hardwareMap, Name, false);
     }
     public void update(boolean open, boolean close){

@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
 
-public class driveTrain {
+public class DriveTrain {
 
     private DcMotorEx FrontLeft, FrontRight, BackLeft, BackRight;
     private IMU imu;
@@ -22,7 +22,7 @@ public class driveTrain {
         RevRight,
         None
     }
-    public driveTrain(HardwareMap hardwareMap, String[] Names, Reverse reversal, String IMUName, IMU.Parameters params, ScalarInterface scalar){
+    public DriveTrain(HardwareMap hardwareMap, String[] Names, Reverse reversal, String IMUName, IMU.Parameters params, ScalarInterface scalar){
         FrontRight  =   hardwareMap.get(DcMotorEx.class, Names[0]);
         FrontLeft   =   hardwareMap.get(DcMotorEx.class, Names[1]);
         BackRight   =   hardwareMap.get(DcMotorEx.class, Names[2]);
@@ -46,10 +46,10 @@ public class driveTrain {
         imu.initialize(params);
         scaleFn = scalar;
     }
-    public driveTrain(HardwareMap hardwareMap, String[] Names, Reverse reversal, String IMUName, IMU.Parameters params){
+    public DriveTrain(HardwareMap hardwareMap, String[] Names, Reverse reversal, String IMUName, IMU.Parameters params){
         this(hardwareMap, Names, reversal, IMUName, params, (x) -> {return x;});
     }
-    public driveTrain(HardwareMap hardwareMap, String[] Names, Reverse reversal, String IMUName) {
+    public DriveTrain(HardwareMap hardwareMap, String[] Names, Reverse reversal, String IMUName) {
         this(hardwareMap, Names, reversal, IMUName,
                 new IMU.Parameters(
                         new RevHubOrientationOnRobot(
@@ -59,7 +59,7 @@ public class driveTrain {
         );
 
     }
-    public driveTrain(HardwareMap hardwareMap, String[] Names, String IMUName){
+    public DriveTrain(HardwareMap hardwareMap, String[] Names, String IMUName){
         this(hardwareMap, Names, Reverse.RevLeft, IMUName);
     }
     public void update(double forward, double strafe, double turn, boolean resetIMU) {

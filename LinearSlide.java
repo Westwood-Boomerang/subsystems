@@ -4,14 +4,14 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.util.Arrays;
-public class linearSlide {
+public class LinearSlide {
     private DcMotorEx slider;
     private int[] StoppingPoints;
     PIDFcontroller controller;
     private int Pointer; //A POINTer to the stopping POINTS
     private int NumberOfPoints;
 
-    public linearSlide(HardwareMap hardwareMap, String Name, int[] points, int currIndex, PIDFcontroller PID){
+    public LinearSlide(HardwareMap hardwareMap, String Name, int[] points, int currIndex, PIDFcontroller PID){
         slider = hardwareMap.get(DcMotorEx.class, Name);
         StoppingPoints = points;
         Arrays.sort(StoppingPoints); // Allows us to use ++ and -- to move through the points
@@ -19,10 +19,10 @@ public class linearSlide {
         controller = PID;
         Pointer = currIndex;
     }
-    public linearSlide(HardwareMap hardwareMap, String Name, int[] points, int currIndex){
+    public LinearSlide(HardwareMap hardwareMap, String Name, int[] points, int currIndex){
         this(hardwareMap, Name, points, currIndex, new PIDFcontroller(0.0,0.0,0.0,0.0,0.0,10,5.0) );
     }
-    public linearSlide(HardwareMap hardwareMap, String Name, int[] points){
+    public LinearSlide(HardwareMap hardwareMap, String Name, int[] points){
         this(hardwareMap,Name, points, 0);
     }
     public void update(boolean up, boolean down, boolean highest, boolean bottom){
