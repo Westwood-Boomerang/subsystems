@@ -15,7 +15,7 @@ public class LinearSlide {
         slider = hardwareMap.get(DcMotorEx.class, Name);
         StoppingPoints = points;
         Arrays.sort(StoppingPoints); // Allows us to use ++ and -- to move through the points
-        NumberOfPoints = StoppingPoints.length;
+        NumberOfPoints = StoppingPoints.length-1;
         controller = PID;
         Pointer = currIndex;
     }
