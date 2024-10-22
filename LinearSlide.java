@@ -5,44 +5,55 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.util.Arrays;
 public class LinearSlide {
-    private DcMotorEx slider;
-    private int[] StoppingPoints;
+    private final DcMotorEx slider;
+    private final int[] stoppingPoints;
     PIDFcontroller controller;
-    private int Pointer; //A POINTer to the stopping POINTS
-    private int NumberOfPoints;
+    private int pointer; //A POINTer to the stopping POINTS
+    private final int numberOfPoints;
 
-    public LinearSlide(HardwareMap hardwareMap, String Name, int[] points, int currIndex, PIDFcontroller PID){
-        slider = hardwareMap.get(DcMotorEx.class, Name);
-        StoppingPoints = points;
-        Arrays.sort(StoppingPoints); // Allows us to use ++ and -- to move through the points
-        NumberOfPoints = StoppingPoints.length-1;
+    private boolean runningHighMacro = false;
+    private boolean runningLowMacro = false;
+
+    public LinearSlide(DcMotorEx slider, int[] points, int currIndex, PIDFcontroller PID){
+        this.slider = slider;
+        stoppingPoints = points;
+        Arrays.sort(stoppingPoints); // Allows us to use ++ and -- to move through the points
+        numberOfPoints = stoppingPoints.length;
         controller = PID;
-        Pointer = currIndex;
+        pointer = currIndex;
     }
     public LinearSlide(HardwareMap hardwareMap, String Name, int[] points, int currIndex){
-        this(hardwareMap, Name, points, currIndex, new PIDFcontroller(0.0,0.0,0.0,0.0,0.0,10,5.0) );
+        this(hardwareMap.get(DcMotorEx.class, Name), points, currIndex, new PIDFcontroller(0.0,0.0,0.0,0.0,0.0,10,0.8) );
     }
     public LinearSlide(HardwareMap hardwareMap, String Name, int[] points){
         this(hardwareMap,Name, points, 0);
     }
     public void update(boolean up, boolean down, boolean highest, boolean bottom){
         if(highest){
-          controller.CalculateAsnyc(StoppingPoints[Pointer=NumberOfPoints],slider.getCurrentPosition());
+            runningHighMacro = true;
+            runningLowMacro = false;
+        } else if (bottom){
+            runningHighMacro = false;
+            runningLowMacro = true;
+        } else if(!isTop() && up) {
+            runningHighMacro = runningLowMacro = false;
+            slider.setPower(controller.CalculateAsnyc(stoppingPoints[++pointer], slider.getCurrentPosition()));
+        } else if (!isBottom() && down){
+            runningHighMacro = runningLowMacro = false;
+            slider.setPower(controller.CalculateAsnyc(stoppingPoints[--pointer], slider.getCurrentPosition()));
         }
-        if (bottom){
-            controller.CalculateAsnyc(StoppingPoints[Pointer=0],slider.getCurrentPosition());
-        }
-        if(Pointer != NumberOfPoints && up) {
-            controller.CalculateAsnyc(StoppingPoints[++Pointer], slider.getCurrentPosition());
-        }
-        if (Pointer != 0 && down){
-            controller.CalculateAsnyc(StoppingPoints[--Pointer], slider.getCurrentPosition());
+
+        // As soon as the press the high/low button, it will run to completion _unless_ they press another button (like up/down)
+        if (runningHighMacro) {
+            slider.setPower(controller.CalculateAsnyc(stoppingPoints[pointer = numberOfPoints - 1],slider.getCurrentPosition()));
+        } else if (runningLowMacro) {
+            slider.setPower(controller.CalculateAsnyc(stoppingPoints[pointer =0],slider.getCurrentPosition()));
         }
     }
     boolean isTop(){
-        return Pointer == NumberOfPoints;
+        return pointer >= numberOfPoints - 1;
     }
     boolean isBottom(){
-        return Pointer == 0;
+        return pointer <= 0;
     }
 }
