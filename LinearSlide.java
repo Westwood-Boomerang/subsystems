@@ -35,7 +35,9 @@ public class LinearSlide {
         } else if (bottom){
             runningHighMacro = false;
             runningLowMacro = true;
-        } else if(!isTop() && up) {
+        }
+
+        if(!isTop() && up) {
             runningHighMacro = runningLowMacro = false;
             slider.setPower(controller.CalculateAsnyc(stoppingPoints[++pointer], slider.getCurrentPosition()));
         } else if (!isBottom() && down){
@@ -44,10 +46,12 @@ public class LinearSlide {
         }
 
         // As soon as the press the high/low button, it will run to completion _unless_ they press another button (like up/down)
-        if (runningHighMacro) {
+        else if (runningHighMacro) {
             slider.setPower(controller.CalculateAsnyc(stoppingPoints[pointer = numberOfPoints - 1],slider.getCurrentPosition()));
         } else if (runningLowMacro) {
             slider.setPower(controller.CalculateAsnyc(stoppingPoints[pointer =0],slider.getCurrentPosition()));
+        } else {
+            slider.setPower(0);
         }
     }
     boolean isTop(){

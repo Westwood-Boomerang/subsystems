@@ -28,7 +28,7 @@ public class PIDFcontroller {
       * @param d the Derivative coefficient
       * @param f an additional term, if necessary
       * @param SumLimit the max Integral sum limit
-      * @param toll the allowable difference between the current ticks and the target (Error < tolerance)
+      * @param tol the allowable difference between the current ticks and the target (Error < tolerance)
       * @param gain the gain of the derivative
       *
      */
