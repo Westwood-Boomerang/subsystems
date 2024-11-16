@@ -91,5 +91,22 @@ public class DriveTrain {
         FrontRight.setPower(frontRightPower);
         BackRight.setPower(backRightPower);
     }
+    public void updateRobotCentric(double forward, double strafe, double turn, boolean resetIMU) {
+        double x = strafe *= 1.1;  // Counteract imperfect strafing
 
+        // Denominator is the largest motor power (absolute value) or 1
+        // This ensures all the powers maintain the same ratio,
+        // but only if at least one is out of the range [-1, 1]
+        double denominator = Math.max(Math.abs(forward) + Math.abs(x) + Math.abs(turn), 1);
+        //double denominator = 1;
+        double frontLeftPower   =   scaleFn.scale(forward + x + turn) / denominator;
+        double backLeftPower    =   scaleFn.scale(forward - x + turn) / denominator;
+        double frontRightPower  =   scaleFn.scale(forward - x - turn) / denominator;
+        double backRightPower   =   scaleFn.scale(forward + x - turn) / denominator;
+
+        FrontLeft.setPower(frontLeftPower);
+        BackLeft.setPower(backLeftPower);
+        FrontRight.setPower(frontRightPower);
+        BackRight.setPower(backRightPower);
+    }
 }
