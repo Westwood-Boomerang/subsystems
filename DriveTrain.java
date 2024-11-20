@@ -20,6 +20,8 @@ public class DriveTrain {
     public enum Reverse {
         RevLeft,
         RevRight,
+        // boomerang drivetrain nonsense
+        RevBackRight,
         None
     }
     public DriveTrain(HardwareMap hardwareMap, String[] Names, Reverse reversal, String IMUName, IMU.Parameters params, ScalarInterface scalar){
@@ -34,7 +36,8 @@ public class DriveTrain {
         } else if(reversal == Reverse.RevRight){
             FrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
             BackRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        } else {
+        } else if (reversal == Reverse.RevBackRight){
+            BackRight.setDirection(DcMotorSimple.Direction.REVERSE);
             //Nothing!
         }
         FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
